@@ -1,0 +1,40 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMK.Cartography", "EMK.Cartography\EMK.Cartography.csproj", "{34546EB7-05F2-428F-9B5C-ABB9EC7830C6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF805D93-49D4-4DDF-AEC4-623564BE3507} = {AF805D93-49D4-4DDF-AEC4-623564BE3507}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMK.Test", "EMK.Test\EMK.Test.csproj", "{8D63E0CA-E104-48B2-BA06-A410E1A058B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34546EB7-05F2-428F-9B5C-ABB9EC7830C6} = {34546EB7-05F2-428F-9B5C-ABB9EC7830C6}
+		{AF805D93-49D4-4DDF-AEC4-623564BE3507} = {AF805D93-49D4-4DDF-AEC4-623564BE3507}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMK.Collections", "EMK.Collections\EMK.Collections.csproj", "{AF805D93-49D4-4DDF-AEC4-623564BE3507}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34546EB7-05F2-428F-9B5C-ABB9EC7830C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34546EB7-05F2-428F-9B5C-ABB9EC7830C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34546EB7-05F2-428F-9B5C-ABB9EC7830C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34546EB7-05F2-428F-9B5C-ABB9EC7830C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D63E0CA-E104-48B2-BA06-A410E1A058B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D63E0CA-E104-48B2-BA06-A410E1A058B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D63E0CA-E104-48B2-BA06-A410E1A058B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D63E0CA-E104-48B2-BA06-A410E1A058B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF805D93-49D4-4DDF-AEC4-623564BE3507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF805D93-49D4-4DDF-AEC4-623564BE3507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF805D93-49D4-4DDF-AEC4-623564BE3507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF805D93-49D4-4DDF-AEC4-623564BE3507}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,706 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EMK.Cartography</name>
+    </assembly>
+    <members>
+        <member name="T:EMK.Cartography.Arc">
+            <summary>
+            An arc is defined with its two extremity nodes StartNode and EndNode therefore it is oriented.
+            It is also characterized by a crossing factor named 'Weight'.
+            This value represents the difficulty to reach the ending node from the starting one.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Arc.#ctor(EMK.Cartography.Node,EMK.Cartography.Node)">
+            <summary>
+            Arc constructor.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Extremity nodes cannot be null.</exception>
+            <exception cref="T:System.ArgumentException">StartNode and EndNode must be different.</exception>
+            <param name="Start">The node from which the arc starts.</param>
+            <param name="End">The node to which the arc ends.</param>
+        </member>
+        <member name="M:EMK.Cartography.Arc.CalculateLength">
+            <summary>
+            Performs the calculous that returns the arc's length
+            Can be overriden for derived types of arcs that are not linear.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EMK.Cartography.Arc.ToString">
+            <summary>
+            Returns the textual description of the arc.
+            object.ToString() override.
+            </summary>
+            <returns>String describing this arc.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Arc.Equals(System.Object)">
+            <summary>
+            Object.Equals override.
+            Tells if two arcs are equal by comparing StartNode and EndNode.
+            </summary>
+            <exception cref="T:System.ArgumentException">Cannot compare an arc with another type.</exception>
+            <param name="O">The arc to compare with.</param>
+            <returns>'true' if both arcs are equal.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Arc.GetHashCode">
+            <summary>
+            Object.GetHashCode override.
+            </summary>
+            <returns>HashCode value.</returns>
+        </member>
+        <member name="P:EMK.Cartography.Arc.StartNode">
+            <summary>
+            Gets/Sets the node from which the arc starts.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">StartNode cannot be set to null.</exception>
+            <exception cref="T:System.ArgumentException">StartNode cannot be set to EndNode.</exception>
+        </member>
+        <member name="P:EMK.Cartography.Arc.EndNode">
+            <summary>
+            Gets/Sets the node to which the arc ends.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">EndNode cannot be set to null.</exception>
+            <exception cref="T:System.ArgumentException">EndNode cannot be set to StartNode.</exception>
+        </member>
+        <member name="P:EMK.Cartography.Arc.Weight">
+            <summary>
+            Sets/Gets the weight of the arc.
+            This value is used to determine the cost of moving through the arc.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Arc.Passable">
+            <summary>
+            Gets/Sets the functional state of the arc.
+            'true' means that the arc is in its normal state.
+            'false' means that the arc will not be taken into account (as if it did not exist or if its cost were infinite).
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Arc.Length">
+            <summary>
+            Gets arc's length.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Arc.Cost">
+            <summary>
+            Gets the cost of moving through the arc.
+            Can be overriden when not simply equals to Weight*Length.
+            </summary>
+        </member>
+        <member name="T:EMK.Cartography.Graph">
+            <summary>
+            Graph structure. It is defined with :
+            It is defined with both a list of nodes and a list of arcs.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Graph.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Graph.Clear">
+            <summary>
+            Empties the graph.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Graph.AddNode(EMK.Cartography.Node)">
+            <summary>
+            Directly Adds a node to the graph.
+            </summary>
+            <param name="NewNode">The node to add.</param>
+            <returns>'true' if it has actually been added / 'false' if the node is null or if it is already in the graph.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Graph.AddNode(System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a node, adds to the graph and returns its reference.
+            </summary>
+            <param name="x">X coordinate.</param>
+            <param name="y">Y coordinate.</param>
+            <param name="z">Z coordinate.</param>
+            <returns>The reference of the new node / null if the node is already in the graph.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Graph.AddArc(EMK.Cartography.Arc)">
+            <summary>
+            Directly Adds an arc to the graph.
+            </summary>
+            <exception cref="T:System.ArgumentException">Cannot add an arc if one of its extremity nodes does not belong to the graph.</exception>
+            <param name="NewArc">The arc to add.</param>
+            <returns>'true' if it has actually been added / 'false' if the arc is null or if it is already in the graph.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Graph.AddArc(EMK.Cartography.Node,EMK.Cartography.Node,System.Single)">
+            <summary>
+            Creates an arc between two nodes that are already registered in the graph, adds it to the graph and returns its reference.
+            </summary>
+            <exception cref="T:System.ArgumentException">Cannot add an arc if one of its extremity nodes does not belong to the graph.</exception>
+            <param name="StartNode">Start node for the arc.</param>
+            <param name="EndNode">End node for the arc.</param>
+            <param name="Weight">Weight for the arc.</param>
+            <returns>The reference of the new arc / null if the arc is already in the graph.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Graph.Add2Arcs(EMK.Cartography.Node,EMK.Cartography.Node,System.Single)">
+            <summary>
+            Adds the two opposite arcs between both specified nodes to the graph.
+            </summary>
+            <exception cref="T:System.ArgumentException">Cannot add an arc if one of its extremity nodes does not belong to the graph.</exception>
+            <param name="Node1"></param>
+            <param name="Node2"></param>
+            <param name="Weight"></param>
+        </member>
+        <member name="M:EMK.Cartography.Graph.RemoveNode(EMK.Cartography.Node)">
+            <summary>
+            Removes a node from the graph as well as the linked arcs.
+            </summary>
+            <param name="NodeToRemove">The node to remove.</param>
+            <returns>'true' if succeeded / 'false' otherwise.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Graph.RemoveArc(EMK.Cartography.Arc)">
+            <summary>
+            Removes a node from the graph as well as the linked arcs.
+            </summary>
+            <param name="ArcToRemove">The arc to remove.</param>
+            <returns>'true' if succeeded / 'false' otherwise.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Graph.BoundingBox(System.Double[]@,System.Double[]@)">
+            <summary>
+            Determines the bounding box of the entire graph.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Impossible to determine the bounding box for this graph.</exception>
+            <param name="MinPoint">The point of minimal coordinates for the box.</param>
+            <param name="MaxPoint">The point of maximal coordinates for the box.</param>
+        </member>
+        <member name="M:EMK.Cartography.Graph.ClosestNode(System.Double,System.Double,System.Double,System.Double@,System.Boolean)">
+            <summary>
+            This function will find the closest node from a geographical position in space.
+            </summary>
+            <param name="PtX">X coordinate of the point from which you want the closest node.</param>
+            <param name="PtY">Y coordinate of the point from which you want the closest node.</param>
+            <param name="PtZ">Z coordinate of the point from which you want the closest node.</param>
+            <param name="Distance">The distance to the closest node.</param>
+            <param name="IgnorePassableProperty">if 'false', then nodes whose property Passable is set to false will not be taken into account.</param>
+            <returns>The closest node that has been found.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Graph.ClosestArc(System.Double,System.Double,System.Double,System.Double@,System.Boolean)">
+            <summary>
+            This function will find the closest arc from a geographical position in space using projection.
+            </summary>
+            <param name="PtX">X coordinate of the point from which you want the closest arc.</param>
+            <param name="PtY">Y coordinate of the point from which you want the closest arc.</param>
+            <param name="PtZ">Z coordinate of the point from which you want the closest arc.</param>
+            <param name="Distance">The distance to the closest arc.</param>
+            <param name="IgnorePassableProperty">if 'false', then arcs whose property Passable is set to false will not be taken into account.</param>
+            <returns>The closest arc that has been found.</returns>
+        </member>
+        <member name="P:EMK.Cartography.Graph.Nodes">
+            <summary>
+            Gets the List interface of the nodes in the graph.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Graph.Arcs">
+            <summary>
+            Gets the List interface of the arcs in the graph.
+            </summary>
+        </member>
+        <member name="T:EMK.LightGeometry.Point3D">
+            <summary>
+            Basic geometry class : easy to replace
+            Written so as to be generalized
+            </summary>
+        </member>
+        <member name="M:EMK.LightGeometry.Point3D.#ctor(System.Double[])">
+            <summary>
+            Point3D constructor.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Argument array must not be null.</exception>
+            <exception cref="T:System.ArgumentException">The Coordinates' array must contain exactly 3 elements.</exception>
+            <param name="Coordinates">An array containing the three coordinates' values.</param>
+        </member>
+        <member name="M:EMK.LightGeometry.Point3D.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Point3D constructor.
+            </summary>
+            <param name="CoordinateX">X coordinate.</param>
+            <param name="CoordinateY">Y coordinate.</param>
+            <param name="CoordinateZ">Z coordinate.</param>
+        </member>
+        <member name="M:EMK.LightGeometry.Point3D.DistanceBetween(EMK.LightGeometry.Point3D,EMK.LightGeometry.Point3D)">
+            <summary>
+            Returns the distance between two points.
+            </summary>
+            <param name="P1">First point.</param>
+            <param name="P2">Second point.</param>
+            <returns>Distance value.</returns>
+        </member>
+        <member name="M:EMK.LightGeometry.Point3D.ProjectOnLine(EMK.LightGeometry.Point3D,EMK.LightGeometry.Point3D,EMK.LightGeometry.Point3D)">
+            <summary>
+            Returns the projection of a point on the line defined with two other points.
+            When the projection is out of the segment, then the closest extremity is returned.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">None of the arguments can be null.</exception>
+            <exception cref="T:System.ArgumentException">P1 and P2 must be different.</exception>
+            <param name="Pt">Point to project.</param>
+            <param name="P1">First point of the line.</param>
+            <param name="P2">Second point of the line.</param>
+            <returns>The projected point if it is on the segment / The closest extremity otherwise.</returns>
+        </member>
+        <member name="M:EMK.LightGeometry.Point3D.Equals(System.Object)">
+            <summary>
+            Object.Equals override.
+            Tells if two points are equal by comparing coordinates.
+            </summary>
+            <exception cref="T:System.ArgumentException">Cannot compare Point3D with another type.</exception>
+            <param name="Point">The other 3DPoint to compare with.</param>
+            <returns>'true' if points are equal.</returns>
+        </member>
+        <member name="M:EMK.LightGeometry.Point3D.GetHashCode">
+            <summary>
+            Object.GetHashCode override.
+            </summary>
+            <returns>HashCode value.</returns>
+        </member>
+        <member name="M:EMK.LightGeometry.Point3D.ToString">
+            <summary>
+            Object.GetHashCode override.
+            Returns a textual description of the point.
+            </summary>
+            <returns>String describing this point.</returns>
+        </member>
+        <member name="P:EMK.LightGeometry.Point3D.Item(System.Int32)">
+            <summary>
+            Accede to coordinates by indexes.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">Index must belong to [0;2].</exception>
+        </member>
+        <member name="P:EMK.LightGeometry.Point3D.X">
+            <summary>
+            Gets/Set X coordinate.
+            </summary>
+        </member>
+        <member name="P:EMK.LightGeometry.Point3D.Y">
+            <summary>
+            Gets/Set Y coordinate.
+            </summary>
+        </member>
+        <member name="P:EMK.LightGeometry.Point3D.Z">
+            <summary>
+            Gets/Set Z coordinate.
+            </summary>
+        </member>
+        <member name="T:EMK.Cartography.Heuristic">
+            <summary>
+            A heuristic is a function that associates a value with a node to gauge it considering the node to reach.
+            </summary>
+        </member>
+        <member name="T:EMK.Cartography.AStar">
+            <summary>
+            Class to search the best path between two nodes on a graph.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.AStar.#ctor(EMK.Cartography.Graph)">
+            <summary>
+            AStar Constructor.
+            </summary>
+            <param name="G">The graph on which AStar will perform the search.</param>
+        </member>
+        <member name="M:EMK.Cartography.AStar.SearchPath(EMK.Cartography.Node,EMK.Cartography.Node)">
+            <summary>
+            Searches for the best path to reach the specified EndNode from the specified StartNode.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">StartNode and EndNode cannot be null.</exception>
+            <param name="StartNode">The node from which the path must start.</param>
+            <param name="EndNode">The node to which the path must end.</param>
+            <returns>'true' if succeeded / 'false' if failed.</returns>
+        </member>
+        <member name="M:EMK.Cartography.AStar.Initialize(EMK.Cartography.Node,EMK.Cartography.Node)">
+            <summary>
+            Use for a 'step by step' search only. This method is alternate to SearchPath.
+            Initializes AStar before performing search steps manually with NextStep.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">StartNode and EndNode cannot be null.</exception>
+            <param name="StartNode">The node from which the path must start.</param>
+            <param name="EndNode">The node to which the path must end.</param>
+        </member>
+        <member name="M:EMK.Cartography.AStar.NextStep">
+            <summary>
+            Use for a 'step by step' search only. This method is alternate to SearchPath.
+            The algorithm must have been initialize before.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">You must initialize AStar before using NextStep().</exception>
+            <returns>'true' unless the search ended.</returns>
+        </member>
+        <member name="M:EMK.Cartography.AStar.ResultInformation(System.Int32@,System.Double@)">
+            <summary>
+            Returns information on the result.
+            </summary>
+            <param name="NbArcsOfPath">The number of arcs in the result path / -1 if no result.</param>
+            <param name="CostOfPath">The cost of the result path / -1 if no result.</param>
+            <returns>'true' if the search succeeded / 'false' if it failed.</returns>
+        </member>
+        <member name="P:EMK.Cartography.AStar.EuclidianHeuristic">
+            <summary>
+            Heuristic based on the euclidian distance : Sqrt(DxІ+DyІ+DzІ)
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.MaxAlongAxisHeuristic">
+            <summary>
+            Heuristic based on the maximum distance : Max(|Dx|, |Dy|, |Dz|)
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.ManhattanHeuristic">
+            <summary>
+            Heuristic based on the manhattan distance : |Dx|+|Dy|+|Dz|
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.ChoosenHeuristic">
+            <summary>
+            Gets/Sets the heuristic that AStar will use.
+            It must be homogeneous to arc's cost.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.DijkstraHeuristicBalance">
+            <summary>
+            This value must belong to [0; 1] and it determines the influence of the heuristic on the algorithm.
+            If this influence value is set to 0, then the search will behave in accordance with the Dijkstra algorithm.
+            If this value is set to 1, then the cost to come to the current node will not be used whereas only the heuristic will be taken into account.
+            </summary>
+            <exception cref="T:System.ArgumentException">Value must belong to [0;1].</exception>
+        </member>
+        <member name="P:EMK.Cartography.AStar.Open">
+            <summary>
+            Use for debug in 'step by step' mode only.
+            Returns all the tracks found in the 'Open' list of the algorithm at a given time.
+            A track is a list of the nodes visited to come to the current node.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.Closed">
+            <summary>
+            Use for debug in a 'step by step' mode only.
+            Returns all the tracks found in the 'Closed' list of the algorithm at a given time.
+            A track is a list of the nodes visited to come to the current node.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.Initialized">
+            <summary>
+            To know if the search has been initialized.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.SearchStarted">
+            <summary>
+            To know if the search has been started.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.SearchEnded">
+            <summary>
+            To know if the search has ended.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.PathFound">
+            <summary>
+            To know if a path has been found.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.StepCounter">
+            <summary>
+            Use for a 'step by step' search only.
+            Gets the number of the current step.
+            -1 if the search has not been initialized.
+            0 if it has not been started.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.AStar.PathByNodes">
+            <summary>
+            Gets the array of nodes representing the found path.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">You cannot get a result unless the search has ended.</exception>
+        </member>
+        <member name="P:EMK.Cartography.AStar.PathByArcs">
+            <summary>
+            Gets the array of arcs representing the found path.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">You cannot get a result unless the search has ended.</exception>
+        </member>
+        <member name="P:EMK.Cartography.AStar.PathByCoordinates">
+            <summary>
+            Gets the array of points representing the found path.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">You cannot get a result unless the search has ended.</exception>
+        </member>
+        <member name="T:EMK.Cartography.Node">
+            <summary>
+            Basically a node is defined with a geographical position in space.
+            It is also characterized with both collections of outgoing arcs and incoming arcs.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Node.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="PositionX">X coordinate.</param>
+            <param name="PositionY">Y coordinate.</param>
+            <param name="PositionZ">Z coordinate.</param>
+        </member>
+        <member name="M:EMK.Cartography.Node.ChangeXYZ(System.Double,System.Double,System.Double)">
+            <summary>
+            Modifies X, Y and Z coordinates
+            </summary>
+            <param name="PositionX">X coordinate.</param>
+            <param name="PositionY">Y coordinate.</param>
+            <param name="PositionZ">Z coordinate.</param>
+        </member>
+        <member name="M:EMK.Cartography.Node.Isolate">
+            <summary>
+            Unlink this node from all current connected arcs.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Node.UntieIncomingArcs">
+            <summary>
+            Unlink this node from all current incoming arcs.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Node.UntieOutgoingArcs">
+            <summary>
+            Unlink this node from all current outgoing arcs.
+            </summary>
+        </member>
+        <member name="M:EMK.Cartography.Node.ArcGoingTo(EMK.Cartography.Node)">
+            <summary>
+            Returns the arc that leads to the specified node if it exists.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Argument node must not be null.</exception>
+            <param name="N">A node that could be reached from this one.</param>
+            <returns>The arc leading to N from this / null if there is no solution.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.ArcComingFrom(EMK.Cartography.Node)">
+            <summary>
+            Returns the arc that arc that comes to this from the specified node if it exists.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Argument node must not be null.</exception>
+            <param name="N">A node that could reach this one.</param>
+            <returns>The arc coming to this from N / null if there is no solution.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.ToString">
+            <summary>
+            object.ToString() override.
+            Returns the textual description of the node.
+            </summary>
+            <returns>String describing this node.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.Equals(System.Object)">
+            <summary>
+            Object.Equals override.
+            Tells if two nodes are equal by comparing positions.
+            </summary>
+            <exception cref="T:System.ArgumentException">A Node cannot be compared with another type.</exception>
+            <param name="O">The node to compare with.</param>
+            <returns>'true' if both nodes are equal.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.Clone">
+            <summary>
+            Returns a copy of this node.
+            </summary>
+            <returns>The reference of the new object.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.GetHashCode">
+            <summary>
+            Object.GetHashCode override.
+            </summary>
+            <returns>HashCode value.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.EuclidianDistance(EMK.Cartography.Node,EMK.Cartography.Node)">
+            <summary>
+            Returns the euclidian distance between two nodes : Sqrt(DxІ+DyІ+DzІ)
+            </summary>
+            <param name="N1">First node.</param>
+            <param name="N2">Second node.</param>
+            <returns>Distance value.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.SquareEuclidianDistance(EMK.Cartography.Node,EMK.Cartography.Node)">
+            <summary>
+            Returns the square euclidian distance between two nodes : DxІ+DyІ+DzІ
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Argument nodes must not be null.</exception>
+            <param name="N1">First node.</param>
+            <param name="N2">Second node.</param>
+            <returns>Distance value.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.ManhattanDistance(EMK.Cartography.Node,EMK.Cartography.Node)">
+            <summary>
+            Returns the manhattan distance between two nodes : |Dx|+|Dy|+|Dz|
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Argument nodes must not be null.</exception>
+            <param name="N1">First node.</param>
+            <param name="N2">Second node.</param>
+            <returns>Distance value.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.MaxDistanceAlongAxis(EMK.Cartography.Node,EMK.Cartography.Node)">
+            <summary>
+            Returns the maximum distance between two nodes : Max(|Dx|, |Dy|, |Dz|)
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Argument nodes must not be null.</exception>
+            <param name="N1">First node.</param>
+            <param name="N2">Second node.</param>
+            <returns>Distance value.</returns>
+        </member>
+        <member name="M:EMK.Cartography.Node.BoundingBox(System.Collections.IList,System.Double[]@,System.Double[]@)">
+            <summary>
+            Returns the bounding box that wraps the specified list of nodes.
+            </summary>
+            <exception cref="T:System.ArgumentException">The list must only contain elements of type Node.</exception>
+            <exception cref="T:System.ArgumentException">The list of nodes is empty.</exception>
+            <param name="NodesGroup">The list of nodes to wrap.</param>
+            <param name="MinPoint">The point of minimal coordinates for the box.</param>
+            <param name="MaxPoint">The point of maximal coordinates for the box.</param>
+        </member>
+        <member name="P:EMK.Cartography.Node.IncomingArcs">
+            <summary>
+            Gets the list of the arcs that lead to this node.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Node.OutgoingArcs">
+            <summary>
+            Gets the list of the arcs that start from this node.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Node.Passable">
+            Gets/Sets the functional state of the node.
+            'true' means that the node is in its normal state.
+            'false' means that the node will not be taken into account (as if it did not exist).
+        </member>
+        <member name="P:EMK.Cartography.Node.X">
+            <summary>
+            Gets X coordinate.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Node.Y">
+            <summary>
+            Gets Y coordinate.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Node.Z">
+            <summary>
+            Gets Z coordinate.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Node.Position">
+            <summary>
+            Gets/Sets the geographical position of the node.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Cannot set the Position to null.</exception>
+        </member>
+        <member name="P:EMK.Cartography.Node.AccessibleNodes">
+            <summary>
+            Gets the array of nodes that can be directly reached from this one.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Node.AccessingNodes">
+            <summary>
+            Gets the array of nodes that can directly reach this one.
+            </summary>
+        </member>
+        <member name="P:EMK.Cartography.Node.Molecule">
+            <summary>
+            Gets the array of nodes directly linked plus this one.
+            </summary>
+        </member>
+        <member name="T:EMK.Cartography.Track">
+            <summary>
+            A track is a succession of nodes which have been visited.
+            Thus when it leads to the target node, it is easy to return the result path.
+            These objects are contained in Open and Closed lists.
+            </summary>
+        </member>
+        <member name="T:EMK.LightGeometry.Vector3D">
+            <summary>
+            Basic geometry class : easy to replace
+            Written so as to be generalized
+            </summary>
+        </member>
+        <member name="M:EMK.LightGeometry.Vector3D.#ctor(System.Double[])">
+            <summary>
+            Vector3D constructor.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Argument array must not be null.</exception>
+            <exception cref="T:System.ArgumentException">The Coordinates' array must contain exactly 3 elements.</exception>
+            <param name="Coordinates">An array containing the three coordinates' values.</param>
+        </member>
+        <member name="M:EMK.LightGeometry.Vector3D.#ctor(System.Double,System.Double,System.Double)">
+            <summary>
+            Vector3D constructor.
+            </summary>
+            <param name="DeltaX">DX coordinate.</param>
+            <param name="DeltaY">DY coordinate.</param>
+            <param name="DeltaZ">DZ coordinate.</param>
+        </member>
+        <member name="M:EMK.LightGeometry.Vector3D.#ctor(EMK.LightGeometry.Point3D,EMK.LightGeometry.Point3D)">
+            <summary>
+            Constructs a Vector3D with two points.
+            </summary>
+            <param name="P1">First point of the vector.</param>
+            <param name="P2">Second point of the vector.</param>
+        </member>
+        <member name="M:EMK.LightGeometry.Vector3D.op_Multiply(EMK.LightGeometry.Vector3D,System.Double)">
+            <summary>
+            Multiplication of a vector by a scalar value.
+            </summary>
+            <param name="V">Vector to operate.</param>
+            <param name="Factor">Factor value.</param>
+            <returns>New vector resulting from the multiplication.</returns>
+        </member>
+        <member name="M:EMK.LightGeometry.Vector3D.op_Division(EMK.LightGeometry.Vector3D,System.Double)">
+            <summary>
+            Division of a vector by a scalar value.
+            </summary>
+            <exception cref="T:System.ArgumentException">Divider cannot be 0.</exception>
+            <param name="V">Vector to operate.</param>
+            <param name="Divider">Divider value.</param>
+            <returns>New vector resulting from the division.</returns>
+        </member>
+        <member name="M:EMK.LightGeometry.Vector3D.op_BitwiseOr(EMK.LightGeometry.Vector3D,EMK.LightGeometry.Vector3D)">
+            <summary>
+            Scalar product between two vectors.
+            </summary>
+            <param name="V1">First vector.</param>
+            <param name="V2">Second vector.</param>
+            <returns>Value resulting from the scalar product.</returns>
+        </member>
+        <member name="M:EMK.LightGeometry.Vector3D.op_Addition(EMK.LightGeometry.Point3D,EMK.LightGeometry.Vector3D)">
+            <summary>
+            Returns a point resulting from the translation of a specified point.
+            </summary>
+            <param name="P">Point to translate.</param>
+            <param name="V">Vector to apply for the translation.</param>
+            <returns>Point resulting from the translation.</returns>
+        </member>
+        <member name="P:EMK.LightGeometry.Vector3D.Item(System.Int32)">
+            <summary>
+            Accede to coordinates by indexes.
+            </summary>
+            <exception cref="T:System.IndexOutOfRangeException">Illegal value for CoordinateIndex.</exception>
+        </member>
+        <member name="P:EMK.LightGeometry.Vector3D.DX">
+            <summary>
+            Gets/Sets delta X value.
+            </summary>
+        </member>
+        <member name="P:EMK.LightGeometry.Vector3D.DY">
+            <summary>
+            Gets/Sets delta Y value.
+            </summary>
+        </member>
+        <member name="P:EMK.LightGeometry.Vector3D.DZ">
+            <summary>
+            Gets/Sets delta Z value.
+            </summary>
+        </member>
+        <member name="P:EMK.LightGeometry.Vector3D.SquareNorm">
+            <summary>
+            Gets the square norm of the vector.
+            </summary>
+        </member>
+        <member name="P:EMK.LightGeometry.Vector3D.Norm">
+            <summary>
+            Gets the norm of the vector.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Vector's norm cannot be changed if it is 0.</exception>
+        </member>
+    </members>
+</doc>

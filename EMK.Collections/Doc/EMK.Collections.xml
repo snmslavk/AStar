@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EMK.Collections</name>
+    </assembly>
+    <members>
+        <member name="T:EMK.Collections.SortableList">
+            <summary>
+            The SortableList allows to maintain a list sorted as long as needed.
+            If no IComparer interface has been provided at construction, then the list expects the Objects to implement IComparer.
+            If the list is not sorted it behaves like an ordinary list.
+            When sorted, the list's "Add" method will put new objects at the right place.
+            As well the "Contains" and "IndexOf" methods will perform a binary search.
+            </summary>
+        </member>
+        <member name="M:EMK.Collections.SortableList.#ctor">
+            <summary>
+            Default constructor.
+            Since no IComparer is provided here, added objects must implement the IComparer interface.
+            </summary>
+        </member>
+        <member name="M:EMK.Collections.SortableList.#ctor(System.Int32)">
+            <summary>
+            Constructor.
+            Since no IComparer is provided, added objects must implement the IComparer interface.
+            </summary>
+            <param name="Capacity">Capacity of the list (<see cref="P:System.Collections.ArrayList.Capacity">ArrayList.Capacity</see>)</param>
+        </member>
+        <member name="M:EMK.Collections.SortableList.#ctor(System.Collections.IComparer)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="Comparer">Will be used to compare added elements for sort and search operations.</param>
+        </member>
+        <member name="M:EMK.Collections.SortableList.#ctor(System.Collections.IComparer,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="Comparer">Will be used to compare added elements for sort and search operations.</param>
+            <param name="Capacity">Capacity of the list (<see cref="P:System.Collections.ArrayList.Capacity">ArrayList.Capacity</see>)</param>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Add(System.Object)">
+            <summary>
+            IList implementation.
+            If the <see cref="P:EMK.Collections.SortableList.KeepSorted">KeepSorted</see> property is set to true, the object will be added at the right place.
+            Else it will be added at the end of the list.
+            </summary>
+            <param name="O">The object to add.</param>
+            <returns>The index where the object has been added.</returns>
+            <exception cref="T:System.ArgumentException">The SortableList is set to use object's IComparable interface, and the specifed object does not implement this interface.</exception>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Contains(System.Object)">
+            <summary>
+            IList implementation.
+            Search for a specified object in the list.
+            If the list is sorted, a <see cref="M:System.Collections.ArrayList.BinarySearch(System.Int32,System.Int32,System.Object,System.Collections.IComparer)">BinarySearch</see> is performed using IComparer interface.
+            Else the <see cref="M:EMK.Collections.SortableList.Equals(System.Object)">Object.Equals</see> implementation is used.
+            </summary>
+            <param name="O">The object to look for</param>
+            <returns>true if the object is in the list, otherwise false.</returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.IndexOf(System.Object)">
+            <summary>
+            IList implementation.
+            Returns the index of the specified object in the list.
+            If the list is sorted, a <see cref="M:System.Collections.ArrayList.BinarySearch(System.Int32,System.Int32,System.Object,System.Collections.IComparer)">BinarySearch</see> is performed using IComparer interface.
+            Else the <see cref="M:EMK.Collections.SortableList.Equals(System.Object)">Object.Equals</see> implementation of objects is used.
+            </summary>
+            <param name="O">The object to locate.</param>
+            <returns>
+            If the object has been found, a positive integer corresponding to its position.
+            If the objects has not been found, a negative integer which is the bitwise complement of the index of the next element.
+            </returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Clear">
+            <summary>
+            IList implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Insert(System.Int32,System.Object)">
+            <summary>
+            IList implementation.
+            Inserts an objects at a specified index.
+            Cannot be used if the list has its KeepSorted property set to true.
+            </summary>
+            <param name="Index">The index before which the object must be added.</param>
+            <param name="O">The object to add.</param>
+            <exception cref="T:System.ArgumentException">The SortableList is set to use object's IComparable interface, and the specifed object does not implement this interface.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Index is less than zero or Index is greater than Count.</exception>
+            <exception cref="T:System.InvalidOperationException">If the object is added at the specify index, the list will not be sorted any more and the <see cref="P:EMK.Collections.SortableList.KeepSorted"/> property is set to true.</exception>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Remove(System.Object)">
+            <summary>
+            IList implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+            <param name="Value">The object whose value must be removed if found in the list.</param>
+        </member>
+        <member name="M:EMK.Collections.SortableList.RemoveAt(System.Int32)">
+            <summary>
+            IList implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+            <param name="Index">Index of object to remove.</param>
+        </member>
+        <member name="M:EMK.Collections.SortableList.CopyTo(System.Array,System.Int32)">
+            <summary>
+            IList.ICollection implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+            <param name="array"></param>
+            <param name="arrayIndex"></param>
+        </member>
+        <member name="M:EMK.Collections.SortableList.GetEnumerator">
+            <summary>
+            IList.IEnumerable implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+            <returns>Enumerator on the list.</returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Clone">
+            <summary>
+            ICloneable implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+            <returns>Cloned object.</returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.IndexOf(System.Object,System.Int32)">
+            <summary>
+            Idem IndexOf(object), but starting at a specified position in the list
+            </summary>
+            <param name="O">The object to locate.</param>
+            <param name="Start">The index for start position.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.IndexOf(System.Object,EMK.Collections.SortableList.Equality)">
+            <summary>
+            Idem IndexOf(object), but with a specified equality function
+            </summary>
+            <param name="O">The object to locate.</param>
+            <param name="AreEqual">Equality function to use for the search.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.IndexOf(System.Object,System.Int32,EMK.Collections.SortableList.Equality)">
+            <summary>
+            Idem IndexOf(object), but with a start index and a specified equality function
+            </summary>
+            <param name="O">The object to locate.</param>
+            <param name="Start">The index for start position.</param>
+            <param name="AreEqual">Equality function to use for the search.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.ToString">
+            <summary>
+            Object.ToString() override.
+            Build a string to represent the list.
+            </summary>
+            <returns>The string refecting the list.</returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Equals(System.Object)">
+            <summary>
+            Object.Equals() override.
+            </summary>
+            <returns>true if object is equal to this, otherwise false.</returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.GetHashCode">
+            <summary>
+            Object.GetHashCode() override.
+            </summary>
+            <returns>HashCode value.</returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.Sort">
+            <summary>
+            Sorts the elements in the list using <see cref="M:System.Collections.ArrayList.Sort">ArrayList.Sort</see>.
+            Does nothing if the list is already sorted.
+            </summary>
+        </member>
+        <member name="M:EMK.Collections.SortableList.AddRange(System.Collections.ICollection)">
+            <summary>
+            If the <see cref="P:EMK.Collections.SortableList.KeepSorted">KeepSorted</see> property is set to true, the object will be added at the right place.
+            Else it will be appended to the list.
+            </summary>
+            <param name="C">The object to add.</param>
+            <returns>The index where the object has been added.</returns>
+            <exception cref="T:System.ArgumentException">The SortableList is set to use object's IComparable interface, and the specifed object does not implement this interface.</exception>
+        </member>
+        <member name="M:EMK.Collections.SortableList.InsertRange(System.Int32,System.Collections.ICollection)">
+            <summary>
+            Inserts a collection of objects at a specified index.
+            Should not be used if the list is the KeepSorted property is set to true.
+            </summary>
+            <param name="Index">The index before which the objects must be added.</param>
+            <param name="C">The object to add.</param>
+            <exception cref="T:System.ArgumentException">The SortableList is set to use objects's IComparable interface, and the specifed object does not implement this interface.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Index is less than zero or Index is greater than Count.</exception>
+            <exception cref="T:System.InvalidOperationException">If the object is added at the specify index, the list will not be sorted any more and the <see cref="P:EMK.Collections.SortableList.KeepSorted"/> property is set to true.</exception>
+        </member>
+        <member name="M:EMK.Collections.SortableList.LimitNbOccurrences(System.Object,System.Int32)">
+            <summary>
+            Limits the number of occurrences of a specified value.
+            Same values are equals according to the Equals() method of objects in the list.
+            The first occurrences encountered are kept.
+            </summary>
+            <param name="Value">Value whose occurrences number must be limited.</param>
+            <param name="NbValuesToKeep">Number of occurrences to keep</param>
+        </member>
+        <member name="M:EMK.Collections.SortableList.RemoveDuplicates">
+            <summary>
+            Removes all duplicates in the list.
+            Each value encountered will have only one representant.
+            </summary>
+        </member>
+        <member name="M:EMK.Collections.SortableList.IndexOfMin">
+            <summary>
+            Returns the object of the list whose value is minimum
+            </summary>
+            <returns>The minimum object in the list</returns>
+        </member>
+        <member name="M:EMK.Collections.SortableList.IndexOfMax">
+            <summary>
+            Returns the object of the list whose value is maximum
+            </summary>
+            <returns>The maximum object in the list</returns>
+        </member>
+        <member name="P:EMK.Collections.SortableList.IsSorted">
+            <summary>
+            'Get only' property that indicates if the list is sorted.
+            </summary>
+        </member>
+        <member name="P:EMK.Collections.SortableList.KeepSorted">
+            <summary>
+            Get : Indicates if the list must be kept sorted from now on.
+            Set : Tells the list if it must stay sorted or not. Impossible to set to true if the list is not sorted.
+            <see cref="P:EMK.Collections.SortableList.KeepSorted">KeepSorted</see>==true implies that <see cref="P:EMK.Collections.SortableList.IsSorted">IsSorted</see>==true
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Cannot be set to true if the list is not sorted yet.</exception>
+        </member>
+        <member name="P:EMK.Collections.SortableList.AddDuplicates">
+            <summary>
+            If set to true, it will not be possible to add an object to the list if its value is already in the list.
+            </summary>
+        </member>
+        <member name="P:EMK.Collections.SortableList.Item(System.Int32)">
+            <summary>
+            IList implementation.
+            Gets - or sets - object's value at a specified index.
+            The set operation is impossible if the <see cref="P:EMK.Collections.SortableList.KeepSorted">KeepSorted</see> property is set to true.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Index is less than zero or Index is greater than Count.</exception>
+            <exception cref="T:System.InvalidOperationException">[] operator cannot be used to set a value if KeepSorted property is set to true.</exception>
+        </member>
+        <member name="P:EMK.Collections.SortableList.IsFixedSize">
+            <summary>
+            IList implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+        </member>
+        <member name="P:EMK.Collections.SortableList.IsReadOnly">
+            <summary>
+            IList implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+        </member>
+        <member name="P:EMK.Collections.SortableList.Count">
+            <summary>
+            IList.ICollection implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+        </member>
+        <member name="P:EMK.Collections.SortableList.IsSynchronized">
+            <summary>
+            IList.ICollection implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+        </member>
+        <member name="P:EMK.Collections.SortableList.SyncRoot">
+            <summary>
+            IList.ICollection implementation.
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+        </member>
+        <member name="P:EMK.Collections.SortableList.Capacity">
+            <summary>
+            Idem <see cref="T:System.Collections.ArrayList">ArrayList</see>
+            </summary>
+        </member>
+        <member name="T:EMK.Collections.SortableList.Equality">
+            <summary>
+            Defines an equality for two objects
+            </summary>
+        </member>
+    </members>
+</doc>
