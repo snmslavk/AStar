@@ -1,13 +1,4 @@
-// Copyright 2003 Eric Marchesin - <eric.marchesin@laposte.net>
-//
-// This source file(s) may be redistributed by any means PROVIDING they
-// are not sold for profit without the authors expressed written consent,
-// and providing that this notice and the authors name and all copyright
-// notices remain intact.
-// THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED. USE IT AT YOUR OWN RISK. THE AUTHOR ACCEPTS NO
-// LIABILITY FOR ANY DATA DAMAGE/LOSS THAT THIS PRODUCT MAY CAUSE.
-//-----------------------------------------------------------------------
+
 using System;
 using System.Collections;
 

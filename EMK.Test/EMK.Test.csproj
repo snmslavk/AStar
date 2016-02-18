@@ -78,9 +78,6 @@
     <Compile Include="TestAStar.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TestSortableList.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
