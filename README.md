@@ -19,7 +19,9 @@ Library with implementation of AStar algorithm
      
 # How to
 To install AStar, run the following command in the Package Manager Console.
-      PM> Install-Package Astar
+```
+PM> Install-Package Astar
+```
 
 Add Nodes
 ```C#
