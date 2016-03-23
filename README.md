@@ -18,6 +18,9 @@ Library with implementation of AStar algorithm
      Result way:N1->N4->N5->N6
      
 # How to
+To install AStar, run the following command in the Package Manager Console.
+      PM> Install-Package Astar
+
 Add Nodes
 ```C#
 Node N1 = G.AddNode(2,3,0);
