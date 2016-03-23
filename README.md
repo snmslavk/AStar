@@ -24,13 +24,13 @@ Node N1 = G.AddNode(2,3,0);
 ```
 Add Arcs
 ```C#
-      G.AddArc(N1,N2,1);
+G.AddArc(N1,N2,1);
 ```
 Get Result
 ```C#
-      AStar AS = new AStar(G);
-      AS.SearchPath(N1, N6)
-      foreach (Arc A in AS.PathByArcs)
-            Console.WriteLine(A.ToString());
+AStar AS = new AStar(G);
+AS.SearchPath(N1, N6)
+foreach (Arc A in AS.PathByArcs)
+      Console.WriteLine(A.ToString());
 ```
 
