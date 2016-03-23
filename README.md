@@ -1,5 +1,5 @@
 # AStar
-Library with realization of AStar algorithm 
+Library with implementation of AStar algorithm 
 # Example
 
 
@@ -16,3 +16,15 @@ Library with realization of AStar algorithm
      Goal:N6
      Links of Nodes: N3<-N2<-N1->N4->N5->N6
      Result way:N1->N4->N5->N6
+     
+# How to
+Add Nodes
+      Node N1 = G.AddNode(2,3,0);
+Add Arcs
+      G.AddArc(N1,N2,1);
+Get Result
+      AStar AS = new AStar(G);
+      AS.SearchPath(N1, N6)
+      foreach (Arc A in AS.PathByArcs)
+            Console.WriteLine(A.ToString());
+
