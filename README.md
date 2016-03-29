@@ -1,3 +1,5 @@
+[![NuGet version](https://badge.fury.io/nu/AStar.svg)](https://badge.fury.io/nu/AStar)
+
 # AStar
 Library with implementation of AStar algorithm 
 # Example
