@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/k3278pi94h3000bx?svg=true)](https://ci.appveyor.com/project/snmslavk/astar)
 [![NuGet version](https://badge.fury.io/nu/AStar.svg)](https://badge.fury.io/nu/AStar)
 
 # AStar
